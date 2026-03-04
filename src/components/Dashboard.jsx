@@ -2,13 +2,22 @@ import React, { useEffect, useState } from "react";
 
 export default function Dashboard() {
   const [cards, setCards] = useState([]);
-  const [selected , setSelected] = useState([]) ;
+  const [selected, setSelected] = useState([]);
+  const [solved, setSolved]  = useState([]) ;
 
   const handleSelection = (card) => {
-    setSelected((prev) => [...prev, card]) ;
-  }
+    setSelected((prev) => [...prev, card]);
+  };
 
-  console.log(selected) ;
+  const handleResolved = (card) => {
+    setSolved((prev) => [...prev, card]);
+    setSelected((prev) =>
+      prev.filter((item) => item.ticket_id !== card.ticket_id),
+    );
+  };
+  
+
+  console.log(selected);
 
   useEffect(() => {
     fetch("/tickets.json")
@@ -79,7 +88,43 @@ export default function Dashboard() {
       {/* Right side of the section */}
       <div className="col-span-1 flex flex-col">
         <h1 className="text-2xl font-semibold py-2">Task Status</h1>
+        <div className="flex flex-col gap-2">
+          {selected.length === 0 ? (
+            <div className="text-sm text-gray-500">
+              Select a ticket to add to Task Status
+            </div>
+          ) : (
+            selected.map((sCard) => (
+              <div
+                key={sCard.ticket_id}
+                className="p-4 flex flex-col gap-2 rounded-lg bg-white shadow-sm"
+              >
+                <h2>{sCard.title}</h2>
+                <button
+                  onClick={() => handleResolved(sCard)}
+                  className="w-full rounded-lg text-white py-2 cursor-pointer hover:bg-green-500 bg-green-600 text-lg font-medium"
+                >
+                  Complete
+                </button>
+              </div>
+            ))
+          )}
+        </div>
         <h1 className="text-2xl font-semibold py-2">Resolved Tasks</h1>
+        <div className="flex flex-col gap-2">
+          {solved.length === 0 ? (
+            <div className="text-sm text-gray-500">No resolved tasks yet</div>
+          ) : (
+            solved.map((rCard) => (
+              <div
+                key={rCard.ticket_id}
+                className="p-4 flex flex-col gap-2 rounded-lg bg-white shadow-sm"
+              >
+                <h2>{rCard.title}</h2>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
