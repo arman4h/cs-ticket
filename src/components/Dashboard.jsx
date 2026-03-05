@@ -1,14 +1,37 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 
 export default function Dashboard({ selected, solved, onSelection, onResolved }) {
   const [cards, setCards] = useState([]);
 
   const handleSelection = (card) => {
     onSelection(card);
+    toast.success(" Issue added to task list!", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   };
 
   const handleResolved = (card) => {
     onResolved(card);
+    toast.success(" Issue Solved!", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   };
   
 
@@ -121,6 +144,7 @@ export default function Dashboard({ selected, solved, onSelection, onResolved })
           )}
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 }
