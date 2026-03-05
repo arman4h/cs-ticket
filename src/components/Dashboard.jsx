@@ -8,7 +8,7 @@ export default function Dashboard({ selected, solved, onSelection, onResolved })
   const handleSelection = (card) => {
     onSelection(card);
     toast.success(" Issue added to task list!", {
-      position: "bottom-right",
+      position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: false,
@@ -23,7 +23,7 @@ export default function Dashboard({ selected, solved, onSelection, onResolved })
   const handleResolved = (card) => {
     onResolved(card);
     toast.success(" Issue Solved!", {
-      position: "bottom-right",
+      position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: false,
