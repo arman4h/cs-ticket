@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
 
-export default function Dashboard() {
+export default function Dashboard({ selected, solved, onSelection, onResolved }) {
   const [cards, setCards] = useState([]);
-  const [selected, setSelected] = useState([]);
-  const [solved, setSolved]  = useState([]) ;
 
   const handleSelection = (card) => {
-    setSelected((prev) => [...prev, card]);
+    onSelection(card);
   };
 
   const handleResolved = (card) => {
-    setSolved((prev) => [...prev, card]);
-    setSelected((prev) =>
-      prev.filter((item) => item.ticket_id !== card.ticket_id),
-    );
+    onResolved(card);
   };
   
 

@@ -1,28 +1,11 @@
-import React, { useState, useEffect } from 'react'
 import './Hero.css'
 
-export default function Hero() {
-  const [inProgressCount, setInProgressCount] = useState(0)
-  const [resolvedCount, setResolvedCount] = useState(0)
-
-  useEffect(() => {
-    // Fetch tickets data
-    fetch('/tickets.json')
-      .then(res => res.json())
-      .then(data => {
-        const inProgress = data.filter(ticket => ticket.status === 'In-Progress').length
-        const resolved = data.filter(ticket => ticket.status === 'Resolved').length
-        setInProgressCount(inProgress)
-        setResolvedCount(resolved)
-      })
-      .catch(error => console.error('Error fetching tickets:', error))
-  }, [])
-
+export default function Hero({ inProgressCount, resolvedCount }) {
   return (
     <div className="w-full px-4 md:px-8 py-12 md:py-16">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {/* In-Progress Card */}
+
           <div 
             className="hero-card relative h-40 md:h-48 rounded-2xl overflow-hidden shadow-lg transform transition hover:scale-105"
             style={{
@@ -39,7 +22,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Resolved Card */}
           <div 
             className="hero-card relative h-40 md:h-48 rounded-2xl overflow-hidden shadow-lg transform transition hover:scale-105"
             style={{
